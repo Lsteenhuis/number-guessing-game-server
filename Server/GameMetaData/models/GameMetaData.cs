@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace Server.GameMetaData.models {
-  public class GameMetaDataDto {
+  public class GameMetaData {
     public string Id { get; set; }
     // ToDo GDPR? 
     public string UserEmail { get; set; }

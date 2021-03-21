@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
@@ -13,19 +12,19 @@ namespace Server.GameMetaData.repositories {
       _databasePool = DatabasePool.GetInstance();
     }
 
-    public void AddMetaData(GameMetaDataDto gameMetaDataDto) {
-      InsertEntrySpeedInDatabase(gameMetaDataDto);
-      InsertAmountOfGuessesInDatabase(gameMetaDataDto);
+    public void AddMetaData(models.GameMetaData gameMetaData) {
+      InsertEntrySpeedInDatabase(gameMetaData);
+      InsertAmountOfGuessesInDatabase(gameMetaData);
     }
 
-    private void InsertEntrySpeedInDatabase(GameMetaDataDto gameMetaDataDto) {
+    private void InsertEntrySpeedInDatabase(models.GameMetaData gameMetaData) {
       var metaDataCollection = _databasePool.GetCollection<BsonDocument>("game-meta-data", "guessingSpeed");
-      var documents = PrepareEntrySpeedDocuments(gameMetaDataDto);
+      var documents = PrepareEntrySpeedDocuments(gameMetaData);
 
       metaDataCollection.InsertMany(documents);
     }
 
-    private IEnumerable<BsonDocument> PrepareEntrySpeedDocuments(GameMetaDataDto gameMetaData) {
+    private IEnumerable<BsonDocument> PrepareEntrySpeedDocuments(models.GameMetaData gameMetaData) {
       return gameMetaData.EntrySpeedInMs.Select(entrySpeedInMs =>
         new BsonDocument {
           {"UserEmail", gameMetaData.UserEmail},
@@ -33,14 +32,14 @@ namespace Server.GameMetaData.repositories {
         });
     }
 
-    private void InsertAmountOfGuessesInDatabase(GameMetaDataDto gameMetaDataDto) {
+    private void InsertAmountOfGuessesInDatabase(models.GameMetaData gameMetaData) {
       var metaDataCollection = _databasePool.GetCollection<BsonDocument>("game-meta-data", "amountOfGuesses");
-      var document = PrepareAmountOfGuessesDocument(gameMetaDataDto);
+      var document = PrepareAmountOfGuessesDocument(gameMetaData);
 
       metaDataCollection.InsertOne(document);
     }
 
-    private BsonDocument PrepareAmountOfGuessesDocument(GameMetaDataDto gameMetaData) {
+    private BsonDocument PrepareAmountOfGuessesDocument(models.GameMetaData gameMetaData) {
       return new() 
       {
         {"id", gameMetaData.Id},

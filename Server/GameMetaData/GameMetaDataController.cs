@@ -2,7 +2,6 @@ using System;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Server.GameMetaData.models;
 using Server.GameMetaData.repositories;
 
 namespace Server.GameMetaData {
@@ -19,7 +18,7 @@ namespace Server.GameMetaData {
     }
 
     [HttpPost]
-    public void CreateGameMetaData(GameMetaDataDto gameMetaData) {
+    public void CreateGameMetaData(models.GameMetaData gameMetaData) {
       try {
         _logger.LogInformation("Trying to store GameSession \"{0}\" to the database", gameMetaData.Id);
 
