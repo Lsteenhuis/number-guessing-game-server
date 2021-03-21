@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Server.GameMetaData.models;
 using Server.GameMetaData.repositories;
 
 namespace Server.GameMetaData {
   [ApiController]
-  [EnableCors("AllowAll")]
   [Route("GameMetaData")]
   public class GuessingSpeedController {
     private readonly GuessingSpeedRepository _guessingSpeedRepository;

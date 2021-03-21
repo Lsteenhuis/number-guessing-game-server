@@ -11,9 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server {
   public class Startup {
+    private const string AllowAll = "AllowAll";
+
     public Startup(IConfiguration configuration) {
       Configuration = configuration;
     }
@@ -22,8 +25,17 @@ namespace Server {
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services) {
-      services.AddControllers();
       services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
+      services.AddControllers();
+      services.AddCors(options => {
+        options.AddPolicy(AllowAll,
+          builder => {
+            builder.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+          });
+      });
+      // services.AddMvc(options => options.EnableEndpointRouting = false);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,8 +50,9 @@ namespace Server {
 
       app.UseRouting();
 
+      app.UseCors(AllowAll);
+      
       app.UseAuthorization();
-
       app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
   }

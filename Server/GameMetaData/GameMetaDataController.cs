@@ -1,12 +1,10 @@
 using System;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Server.GameMetaData.repositories;
 
 namespace Server.GameMetaData {
   [ApiController]
-  [EnableCors("AllowAll")]
   [Route("[controller]")]
   public class GameMetaDataController {
     private readonly ILogger<GameMetaDataController> _logger;

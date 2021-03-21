@@ -42,9 +42,8 @@ namespace Server.GameMetaData.repositories {
     private BsonDocument PrepareAmountOfGuessesDocument(models.GameMetaData gameMetaData) {
       return new() 
       {
-        {"id", gameMetaData.Id},
-        {"amountOfNumbersToGuess", gameMetaData.AmountOfNumbersToGuess},
-        {"amountOfGuesses", gameMetaData.AmountOfGuessed}
+        {"AmountOfNumbersToGuess", gameMetaData.AmountOfNumbersToGuess},
+        {"AmountOfGuessesNeeded", gameMetaData.AmountOfGuessed}
       };
     }
   }
