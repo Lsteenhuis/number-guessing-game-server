@@ -12,12 +12,12 @@ namespace Server.GameMetaData.repositories {
       _databasePool = DatabasePool.GetInstance();
     }
 
-    public List<AverageEntrySpeedResult> GetAverageEntrySpeedOfUser(string email) {
+    public List<EntrySpeedMetaData> GetAverageEntrySpeedOfUser(string email) {
       var collection = _databasePool.GetCollection<EntrySpeed>("game-meta-data", "guessingSpeed");
       
       return collection.Aggregate()
         .Match(new BsonDocument {{"UserEmail", email}})
-        .Group<AverageEntrySpeedResult>(new BsonDocument {
+        .Group<EntrySpeedMetaData>(new BsonDocument {
           {"_id", "$UserEmail"},
           {"AverageEntrySpeed", new BsonDocument("$avg", "$EntrySpeedInMs")},
           {"MinEntrySpeed", new BsonDocument("$min", "$EntrySpeedInMs")},
