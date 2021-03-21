@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Server.GameMetaData.models;
 using Server.GameMetaData.repositories;
 
 namespace Server.GameMetaData {
@@ -9,10 +11,14 @@ namespace Server.GameMetaData {
   public class GameMetaDataController {
     private readonly ILogger<GameMetaDataController> _logger;
     private readonly GameMetaDataRepository _gameMetaDataRepository;
+    private readonly GuessingSpeedRepository _guessingSpeedRepository;
+    private readonly AmountOfGuessesRepository _amountOfGuessesRepository;
 
     public GameMetaDataController(ILogger<GameMetaDataController> logger) {
       _logger = logger;
       _gameMetaDataRepository = new GameMetaDataRepository();
+      _guessingSpeedRepository = new GuessingSpeedRepository();
+      _amountOfGuessesRepository = new AmountOfGuessesRepository();
     }
 
     [HttpPost]
@@ -26,6 +32,16 @@ namespace Server.GameMetaData {
           gameMetaData.Id, error.Message);
         throw;
       }
+    }
+    
+    [HttpGet("{email}/EntrySpeed")]
+    public List<EntrySpeedMetaData> GetEntrySpeedMetaData(string email) {
+      return _guessingSpeedRepository.GetAverageEntrySpeedOfUser(email);
+    }
+    
+    [HttpGet("/amountOfGuesses")]
+    public List<AmountOfGuessesMetaData> GetEntrySpeedMetaData() {
+      return _amountOfGuessesRepository.GetAmountOfGuessesMetaData();
     }
   }
 }
