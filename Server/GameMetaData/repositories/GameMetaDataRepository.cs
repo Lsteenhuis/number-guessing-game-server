@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 using Server.Database;
-using Server.GameMetaData.models;
 
 namespace Server.GameMetaData.repositories {
   public class GameMetaDataRepository {

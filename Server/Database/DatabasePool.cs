@@ -1,4 +1,3 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Server.Database {
@@ -11,11 +10,7 @@ namespace Server.Database {
     }
 
     public static DatabasePool GetInstance() {
-      if (_instance == null) {
-        _instance = new DatabasePool();
-      }
-
-      return _instance;
+      return _instance ??= new DatabasePool();
     }
 
     public IMongoCollection<T> GetCollection<T>(string databaseName, string collectionName) {
