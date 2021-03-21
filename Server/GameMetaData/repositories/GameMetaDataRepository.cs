@@ -27,7 +27,7 @@ namespace Server.GameMetaData.repositories {
     private IEnumerable<BsonDocument> PrepareEntrySpeedDocuments(models.GameMetaData gameMetaData) {
       return gameMetaData.EntrySpeedInMs.Select(entrySpeedInMs =>
         new BsonDocument {
-          {"UserEmail", gameMetaData.UserEmail},
+          {"UserName", gameMetaData.UserName},
           {"EntrySpeedInMs", entrySpeedInMs}
         });
     }

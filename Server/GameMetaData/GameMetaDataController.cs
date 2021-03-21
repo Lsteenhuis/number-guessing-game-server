@@ -34,9 +34,9 @@ namespace Server.GameMetaData {
       }
     }
     
-    [HttpGet("{email}/EntrySpeed")]
-    public List<EntrySpeedMetaData> GetEntrySpeedMetaData(string email) {
-      return _guessingSpeedRepository.GetAverageEntrySpeedOfUser(email);
+    [HttpGet("{userName}/EntrySpeed")]
+    public List<EntrySpeedMetaData> GetEntrySpeedMetaData(string userName) {
+      return _guessingSpeedRepository.GetAverageEntrySpeedOfUser(userName);
     }
     
     [HttpGet("/amountOfGuesses")]
