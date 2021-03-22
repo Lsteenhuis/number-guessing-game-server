@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Server.Database;
@@ -15,6 +16,8 @@ namespace Server.GameMetaData.repositories {
     }
 
     public List<EntrySpeedMetaData> GetAverageEntrySpeedOfUser(string userName) {
+      // _logger.LogInformation($"Starting to retrieve AverageEntry speed of user: {userName}");
+      
       var collection = _databasePool.GetCollection<EntrySpeed>("game-meta-data", "guessingSpeed");
 
       return collection.Aggregate()

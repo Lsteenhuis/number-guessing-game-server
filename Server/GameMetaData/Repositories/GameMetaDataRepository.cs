@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using Server.Database;
 using Server.Database.Interfaces;
@@ -7,14 +8,17 @@ using Server.GameMetaData.interfaces;
 
 namespace Server.GameMetaData.repositories {
   public class GameMetaDataRepository: IGameMetaDataRepository {
-    private readonly DatabasePool _databasePool;
+    private readonly IDatabasePool _databasePool;
 
     public GameMetaDataRepository() {
       _databasePool = DatabasePool.GetInstance();
     }
 
     public void AddMetaData(models.GameMetaData gameMetaData) {
+      // _logger.LogInformation($"Starting to insert EntrySpeed into database for {gameMetaData.Id}");
       InsertEntrySpeedInDatabase(gameMetaData);
+      
+      // _logger.LogInformation($"Starting to insert AmountOfGuesses into database for {gameMetaData.Id}");
       InsertAmountOfGuessesInDatabase(gameMetaData);
     }
 

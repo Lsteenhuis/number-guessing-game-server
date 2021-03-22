@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Server.GameMetaData.interfaces;
 using Server.GameMetaData.models;
 
 namespace Server.GameMetaData.services {
   public class MetaDataCalculator: IMetaDataCalculator{
     public List<AmountOfGuessesMetaData> Calculate(IEnumerable<AmountOfGuesses> amountOfGuesses) {
+      // _logger.LogInformation("Calculating MetaData for the current state of AmountOfGuesses");
+      
       var listOfGroupedGuesses = amountOfGuesses.GroupBy(a => a.AmountOfNumbersToGuess)
         .Select(grp => grp.ToList())
         .ToList();
@@ -26,7 +29,7 @@ namespace Server.GameMetaData.services {
       return amountOfGuesses.Average(guess => guess.AmountOfGuessesNeeded);
     }
 
-    private static int CalculateMin(IEnumerable<AmountOfGuesses> amountOfGuesses) {
+    private int CalculateMin(IEnumerable<AmountOfGuesses> amountOfGuesses) {
       return amountOfGuesses.Min(guess => guess.AmountOfGuessesNeeded);
     }
 
