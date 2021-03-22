@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson;
 using Server.Database;
+using Server.Database.Interfaces;
+using Server.GameMetaData.interfaces;
 
 namespace Server.GameMetaData.repositories {
-  public class GameMetaDataRepository {
+  public class GameMetaDataRepository: IGameMetaDataRepository {
     private readonly DatabasePool _databasePool;
 
     public GameMetaDataRepository() {

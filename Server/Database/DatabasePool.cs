@@ -1,11 +1,12 @@
 using MongoDB.Driver;
+using Server.Database.Interfaces;
 
 namespace Server.Database {
-  public class DatabasePool {
+  public class DatabasePool: IDatabasePool {
     private static DatabasePool _instance;
     private readonly MongoClient _mongoClient;
 
-    private DatabasePool() {
+    public DatabasePool() {
       _mongoClient = new MongoClient();
     }
 

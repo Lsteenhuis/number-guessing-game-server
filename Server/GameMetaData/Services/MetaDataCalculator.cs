@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Server.GameMetaData.interfaces;
 using Server.GameMetaData.models;
 
 namespace Server.GameMetaData.services {
-  public class MetaDataCalculator {
+  public class MetaDataCalculator: IMetaDataCalculator{
     public List<AmountOfGuessesMetaData> Calculate(IEnumerable<AmountOfGuesses> amountOfGuesses) {
       var listOfGroupedGuesses = amountOfGuesses.GroupBy(a => a.AmountOfNumbersToGuess)
         .Select(grp => grp.ToList())

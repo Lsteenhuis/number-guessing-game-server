@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Server.Database;
+using Server.Database.Interfaces;
+using Server.GameMetaData.interfaces;
 using Server.GameMetaData.models;
 
 namespace Server.GameMetaData.repositories {
-  public class GuessingSpeedRepository {
-    private readonly DatabasePool _databasePool;
+  public class GuessingSpeedRepository: IGuessingSpeedRepository {
+    private readonly IDatabasePool _databasePool;
 
     public GuessingSpeedRepository() {
       _databasePool = DatabasePool.GetInstance();
