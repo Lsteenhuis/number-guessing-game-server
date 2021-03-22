@@ -28,20 +28,45 @@ namespace Server.GameMetaData {
 
         _gameMetaDataRepository.AddMetaData(gameMetaData);
       } catch (Exception error) {
-        _logger.LogError("Encountered an error while trying to store GameSession \"{0}\" to the database. {1} ",
-          gameMetaData.Id, error.Message);
-        throw;
+        var errorMessage =
+          $"Encountered an error while trying to store GameSession \"{gameMetaData.Id}\" to the database. {error.Message} ";
+        
+        _logger.LogError(errorMessage);
+        
+        throw new Exception(errorMessage);
       }
     }
     
     [HttpGet("{userName}/EntrySpeed")]
     public List<EntrySpeedMetaData> GetEntrySpeedMetaData(string userName) {
-      return _guessingSpeedRepository.GetAverageEntrySpeedOfUser(userName);
+      try {
+        _logger.LogInformation("Trying to retrieve EntrySpeedMetaData for user \"{0}\"", userName);
+        
+        return _guessingSpeedRepository.GetAverageEntrySpeedOfUser(userName);
+      }
+      catch (Exception error) {
+        var errorMessage =
+          $"Encountered an error while trying to retrieve EntrySpeedMetaData for user  {userName}. Error: {error.Message} ";
+        
+        _logger.LogError(errorMessage);
+        
+        throw new Exception(errorMessage);
+      }
     }
     
     [HttpGet("/amountOfGuesses")]
     public List<AmountOfGuessesMetaData> GetEntrySpeedMetaData() {
-      return _amountOfGuessesRepository.GetAmountOfGuessesMetaData();
+      try {
+        return _amountOfGuessesRepository.GetAmountOfGuessesMetaData();
+      }
+      catch (Exception error) {
+        var errorMessage =
+          $"Encountered an error while trying to retrieve AmountOfGuessesMetaData. Error: {error.Message} ";
+        
+        _logger.LogError(errorMessage);
+        
+        throw new Exception(errorMessage);
+      }
     }
   }
 }
